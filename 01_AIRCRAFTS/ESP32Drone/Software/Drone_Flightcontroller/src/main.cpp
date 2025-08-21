@@ -116,8 +116,9 @@ void loop() {
   }
 
   // === Mixer ===
-  float pitchOut = pitchRaw + CORRECTION_BLEND_FACTOR * pitchCorr;
-  float rollOut  = rollRaw  + CORRECTION_BLEND_FACTOR * rollCorr;
+  float pitchOut = pitchRaw - CORRECTION_BLEND_FACTOR * pitchCorr;
+  float rollOut  = rollRaw  - CORRECTION_BLEND_FACTOR * rollCorr;
+
 
   float m1 = baseThrottle + pitchOut + rollOut - yawOut;
   float m2 = baseThrottle + pitchOut - rollOut + yawOut;
@@ -144,11 +145,11 @@ void loop() {
   }
 
   // === Statusausgabe ===
-  // Serial.printf("BAT: %.2f V | ARMED: %s | PWM: [%4d %4d %4d %4d]  IMU: %s\n",
-  //               v_batt,
-  //               armed ? "JA" : "NEIN",
-  //               pwm1, pwm2, pwm3, pwm4,
-  //               imu.isConnected() ? "OK" : "FEHLT");
+  Serial.printf("BAT: %.2f V | ARMED: %s | PWM: [%4d %4d %4d %4d]  IMU: %s\n",
+                v_batt,
+                armed ? "JA" : "NEIN",
+                pwm1, pwm2, pwm3, pwm4,
+                imu.isConnected() ? "OK" : "FEHLT");
 
-  delay(50); 
+  delay(10); 
 }

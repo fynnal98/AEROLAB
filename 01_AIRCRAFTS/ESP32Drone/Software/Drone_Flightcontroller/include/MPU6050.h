@@ -20,10 +20,12 @@ public:
 private:
     MPU9250_WE m_mpu;
     bool m_connected = false;
-
+    bool m_initialized = false;
     float m_pitch = 0;
     float m_roll = 0;
     float m_yaw = 0;
+    unsigned long m_lastUpdate = 0;
+
 };
 
 #endif
