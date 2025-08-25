@@ -59,8 +59,8 @@ void MPU6050::update() {
     m_yaw = 0; // yaw bräuchte Magnetometer
 
     // Debug-Ausgabe
-    Serial.printf("dt=%.3f | GyroX=%.2f GyroY=%.2f | RollAcc=%.2f PitchAcc=%.2f | Roll=%.2f Pitch=%.2f\n",
-                  dt, gyroX, gyroY, rollAcc, pitchAcc, m_roll, m_pitch);
+    // Serial.printf("dt=%.3f | GyroX=%.2f GyroY=%.2f | RollAcc=%.2f PitchAcc=%.2f | Roll=%.2f Pitch=%.2f\n",
+    //               dt, gyroX, gyroY, rollAcc, pitchAcc, m_roll, m_pitch);
 }
 
 float MPU6050::getPitch() const { return m_pitch / 90.0f; }

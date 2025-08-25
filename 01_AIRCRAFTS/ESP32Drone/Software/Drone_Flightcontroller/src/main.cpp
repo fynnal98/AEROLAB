@@ -48,9 +48,10 @@ void loop() {
   unsigned long now = millis();
 
   // === Akku-Messung ===
-  int raw = analogRead(PIN_VBAT);
-  float v_adc = ((float)raw / VBAT_ADC_RES) * VBAT_ADC_REF;
+  int mv = analogReadMilliVolts(PIN_VBAT);     // Millivolt am ADC-Pin
+  float v_adc = mv / 1000.0f;                  // in Volt
   float v_batt = v_adc * ((VBAT_R1 + VBAT_R2) / VBAT_R2);
+
 
   if (v_batt < VBAT_WARNING_THRESHOLD) {
     if (lowBattSince == 0){
@@ -112,7 +113,7 @@ void loop() {
     if (isnan(pitchCorr) || isinf(pitchCorr)) pitchCorr = 0;
     if (isnan(rollCorr)  || isinf(rollCorr))  rollCorr  = 0;
 
-    Serial.printf("IMU: Roll=%.2f Pitch=%.2f\n", imu.getRoll(), imu.getPitch());
+    // Serial.printf("IMU: Roll=%.2f Pitch=%.2f\n", imu.getRoll(), imu.getPitch());
   }
 
   // === Mixer ===
@@ -145,11 +146,21 @@ void loop() {
   }
 
   // === Statusausgabe ===
-  Serial.printf("BAT: %.2f V | ARMED: %s | PWM: [%4d %4d %4d %4d]  IMU: %s\n",
-                v_batt,
-                armed ? "JA" : "NEIN",
-                pwm1, pwm2, pwm3, pwm4,
-                imu.isConnected() ? "OK" : "FEHLT");
+  // Serial.printf("BAT: %.2f V | ARMED: %s | PWM: [%4d %4d %4d %4d]  IMU: %s\n",
+  //               v_batt,
+  //               armed ? "JA" : "NEIN",
+  //               pwm1, pwm2, pwm3, pwm4,
+  //               imu.isConnected() ? "OK" : "FEHLT");
+
+  // Serial.printf("Roll=%.2f Pitch=%.2f Yaw=%.2f\n",
+  //             sbus.getRoll(), sbus.getPitch(), sbus.getYaw());
+
+
+  Serial.printf("RAW: CH1=%d CH2=%d CH3=%d CH4=%d\n",
+                (int)sbus.getRawChannel(0),
+                (int)sbus.getRawChannel(1),
+                (int)sbus.getRawChannel(2),
+                (int)sbus.getRawChannel(3));
 
   delay(10); 
 }

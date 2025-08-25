@@ -1,5 +1,9 @@
 #include "SbusReceiver.h"
 
+float applyDeadband(float x, float db) {
+    return (fabs(x) < db) ? 0.0f : x;
+}
+
 void SbusReceiver::begin() {
     Serial1.begin(100000, SERIAL_8E2, SBUS_RX_PIN, -1, SBUS_INVERTED);
     delay(100);
@@ -27,25 +31,32 @@ float SbusReceiver::mapChannel(int raw, bool symmetric) {
 }
 
 float SbusReceiver::getRoll() {
-    float raw = mapChannel(m_data.ch[0]);
+    float raw = mapChannel(m_data.ch[0]);                 // [-1..+1]
+    raw = applyDeadband(raw, SBUS_DEADBAND);
+    raw *= ROLL_SCALE;                                     // <<< Scaling nach Mapping
     m_filteredRoll = SBUS_SMOOTHING_ALPHA * raw + (1.0f - SBUS_SMOOTHING_ALPHA) * m_filteredRoll;
     return m_filteredRoll;
 }
 
 float SbusReceiver::getPitch() {
-    float raw = mapChannel(m_data.ch[1]);
+    float raw = mapChannel(m_data.ch[1]);                 // [-1..+1]
+    raw = applyDeadband(raw, SBUS_DEADBAND);
+    raw *= PITCH_SCALE;                                    // <<< Scaling nach Mapping
     m_filteredPitch = SBUS_SMOOTHING_ALPHA * raw + (1.0f - SBUS_SMOOTHING_ALPHA) * m_filteredPitch;
     return m_filteredPitch;
 }
 
 float SbusReceiver::getThrottle() {
-    float raw = mapChannel(m_data.ch[2], false);
+    float raw = mapChannel(m_data.ch[2], false);          // [0..1]
+    raw *= THROTTLE_SCALE;                                 // Scaling (momentan = 1.0)
     m_filteredThrottle = SBUS_SMOOTHING_ALPHA * raw + (1.0f - SBUS_SMOOTHING_ALPHA) * m_filteredThrottle;
     return m_filteredThrottle;
 }
 
 float SbusReceiver::getYaw() {
-    float raw = mapChannel(m_data.ch[3]);
+    float raw = mapChannel(m_data.ch[3]);                 // [-1..+1]
+    raw = applyDeadband(raw, SBUS_DEADBAND);
+    raw *= YAW_SCALE;                                      // <<< Scaling nach Mapping
     m_filteredYaw = SBUS_SMOOTHING_ALPHA * raw + (1.0f - SBUS_SMOOTHING_ALPHA) * m_filteredYaw;
     return m_filteredYaw;
 }
