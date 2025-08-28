@@ -17,7 +17,7 @@
 #define THROTTLE_SCALE  1.00f
 
 // === PWM ===
-#define PWM_FREQ         14000
+#define PWM_FREQ         12000
 #define PWM_RES_BITS     10
 #define PWM_MAX_VALUE    ((1 << PWM_RES_BITS) - 1)
 
@@ -34,6 +34,9 @@
 #define PIN_MOTOR4       1
 
 // === IMU (MPU6050) ===
+#define IMU_OFFSET_X   0.020f //2cm
+#define IMU_OFFSET_Y   0.000f
+#define IMU_OFFSET_Z   0.000f
 #define IMU_SDA_PIN      8
 #define IMU_SCL_PIN      9
 #define CORRECTION_BLEND_FACTOR  0.3f
@@ -41,11 +44,11 @@
 
 
 // === PID Parameter ===
-#define PID_ROLL_KP   0.5f
+#define PID_ROLL_KP   1.2f
 #define PID_ROLL_KI   0.00f
 #define PID_ROLL_KD   0.01f
 
-#define PID_PITCH_KP  0.5f
+#define PID_PITCH_KP  1.2f
 #define PID_PITCH_KI  0.00f
 #define PID_PITCH_KD  0.01f
 
