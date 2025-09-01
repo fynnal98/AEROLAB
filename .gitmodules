@@ -4,9 +4,7 @@
 [submodule "01_AIRCRAFTS/ESP32-Drone"]
 	path = 01_AIRCRAFTS/ESP32-Drone
 	url = git@github.com:fynnal98/ESP32-Drone.git
+	branch = main
 [submodule "02_ELECTRONICS & SOFTWARE/HUBERT"]
 	path = 02_ELECTRONICS & SOFTWARE/HUBERT
 	url = git@github.com:fynnal98/HUBERT.git
-[submodule "01_AIRCRAFTS/01_AIRCRAFTS/ESP32-Drone"]
-	path = 01_AIRCRAFTS/01_AIRCRAFTS/ESP32-Drone
-	url = git@github.com:fynnal98/ESP32-Drone.git
