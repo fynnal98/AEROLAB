@@ -1,0 +1,9 @@
+[submodule "01_AIRCRAFTS/AIR-BERT"]
+	path = 01_AIRCRAFTS/AIR-BERT
+	url = git@github.com:fynnal98/AIR-BERT.git
+[submodule "01_AIRCRAFTS/ESP32-Drone"]
+	path = 01_AIRCRAFTS/ESP32-Drone
+	url = git@github.com:fynnal98/ESP32-Drone.git
+[submodule "02_ELECTRONICS & SOFTWARE/HUBERT"]
+	path = 02_ELECTRONICS & SOFTWARE/HUBERT
+	url = git@github.com:fynnal98/HUBERT.git
